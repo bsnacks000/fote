@@ -1,6 +1,6 @@
 *.sqlite3
 dbconfig.sh
-
+venv-fote/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

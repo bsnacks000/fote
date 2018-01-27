@@ -1,0 +1,20 @@
+{# the most skeletal base template #}
+
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load static %}
+<html>
+    <head>
+        <title>FOTE</title>
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    </head>
+
+    <body>
+        {% block content %}
+            {# we can override subclass content directly here for now since its such as basic app #}
+        {% endblock content %}
+    </body>
+
+    {# if the js gets complex we can add support for modern stuff using webpack and that other crap...  #}
+    <script src="{% static 'js/main.js' %}" charset="utf-8"></script>
+</html>
