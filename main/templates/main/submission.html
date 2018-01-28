@@ -1,0 +1,11 @@
+{#the most basic form I can write here...JV will make this look nice and we can hook up all the form vars but for now this will work to test functionality  #}
+{% extends 'base.html' %}
+
+{% block content %}
+    <h3> UserUpload Form </h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload Image</button>
+     </form>
+{% endblock %}
