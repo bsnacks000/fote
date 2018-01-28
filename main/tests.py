@@ -1,7 +1,8 @@
-from django.test import TestCase
+from django.test import TestCase, RequestFactory
 
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.urls import reverse
 
 # Create your tests here.
 from .models import UserUpload
@@ -65,3 +66,14 @@ class UserUploadFormTest(TestCase):
 
         form = UserUploadForm(data=data, files=image_data) # load bad image
         self.assertFalse(form.is_valid())
+
+
+class TestSubmissionView(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    def test_get_request(self):
+        request = self.factory.get(reverse('submission'))
+        response = submission(request)
+        self.assertEqual(response.status_code, 200)
