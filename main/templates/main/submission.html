@@ -2,6 +2,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {# display form errors if they happend #}
+
+
     <h3> UserUpload Form </h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}

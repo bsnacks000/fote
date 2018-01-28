@@ -10,6 +10,14 @@
     </head>
 
     <body>
+        {# flash messages if needed #}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
         {% block content %}
             {# we can override subclass content directly here for now since its such as basic app #}
         {% endblock content %}

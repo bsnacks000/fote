@@ -1,7 +1,9 @@
-from django.test import TestCase
-
+from django.test import TestCase, RequestFactory
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.urls import reverse
+
+from unittest.mock import patch, MagicMock
 
 # Create your tests here.
 from .models import UserUpload
@@ -13,21 +15,12 @@ base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 test_img_path = os.path.join(base_dir, 'test_img', 'baphomet.jpeg')
 bogus_img_path = os.path.join(base_dir, 'test_img', 'test_img.md')
 
-good_image = SimpleUploadedFile(name='baphomet.jpeg', content=open(test_img_path, 'rb').read(), content_type='image/jpeg')
-bogus_image = SimpleUploadedFile(name='test_img.md', content=open(bogus_img_path, 'rb').read(), content_type='text/plain')
 
 class UserUploadModelTests(TestCase):
 
-    def test_userupload_record_added_to_database(self):
-
-        record = {'username': 'hep','email': 'hep@tup.com','location': 'nyc','upload_image': good_image}
-        u = UserUpload(**record)
-        u.save()
-
-        get_user = UserUpload.objects.get(username='hep')
-        self.assertIsEqual(len(get_user), 1)
 
     def test_create_user_upload_booleans_inits_to_false(self):
+        good_image = SimpleUploadedFile(name='baphomet.jpeg', content=open(test_img_path, 'rb').read(), content_type='image/jpeg')
         record = {'username': 'hep','email': 'hep@tup.com','location': 'nyc','upload_image': good_image}
 
         u = UserUpload(**record)
@@ -37,7 +30,7 @@ class UserUploadModelTests(TestCase):
         self.assertIs(u.sent_confirmation_email, False)
 
     def test_create_user_with_bad_email_throws_validation_error(self):
-
+        good_image = SimpleUploadedFile(name='baphomet.jpeg', content=open(test_img_path, 'rb').read(), content_type='image/jpeg')
         record = { 'username': 'hep', 'email': 'garbage', 'location': 'nyc', 'upload_image': good_image}
 
         with self.assertRaises(ValidationError):
@@ -49,7 +42,7 @@ class UserUploadModelTests(TestCase):
 class UserUploadFormTest(TestCase):
 
     def test_good_image_form_input_is_valid(self):
-
+        good_image = SimpleUploadedFile(name='baphomet.jpeg', content=open(test_img_path, 'rb').read(), content_type='image/jpeg')
         data = {'username': 'hep','email': 'some@email.com','location': 'some location'}
         image_data = {'upload_image': good_image}
 
@@ -58,6 +51,7 @@ class UserUploadFormTest(TestCase):
 
 
     def test_bad_image_form_input_is_not_valid(self):
+        bogus_image = SimpleUploadedFile(name='test_img.md', content=open(bogus_img_path, 'rb').read(), content_type='text/plain')
 
         data = {'username': 'hep','email': 'some@email.com','location': 'some location'}
         image_data = {'upload_image': bogus_image}
@@ -67,9 +61,31 @@ class UserUploadFormTest(TestCase):
 
 
     def test_invalid_email(self):
-
+        good_image = SimpleUploadedFile(name='baphomet.jpeg', content=open(test_img_path, 'rb').read(), content_type='image/jpeg')
         data = {'username': 'hep', 'email': 'blahblahblahblah','location': 'some location'}
         image_data = {'upload_image': good_image}
 
         form = UserUploadForm(data=data, files=image_data) # load bad image
-        self.assertTrue(form.is_valid())
+        self.assertFalse(form.is_valid())
+
+
+class TestSubmissionView(TestCase):
+
+    def setUp(self):
+        self.factory = RequestFactory()
+
+    def test_get_request(self):
+        request = self.factory.get(reverse('submission'))
+        response = submission(request)
+        self.assertEqual(response.status_code, 200)
+
+    @patch('main.models.UserUpload.save', MagicMock(name="save"))  # so that there is no database hit
+    def test_post_request(self):
+        good_image = SimpleUploadedFile(name='baphomet.jpeg', content=open(test_img_path, 'rb').read(), content_type='image/jpeg')
+        post_data = {'username': 'hep', 'email': 'email@gmail.com','location': 'some location', 'upload_image': good_image}
+        request = self.factory.post(reverse('submission'), post_data)
+
+        response = submission(request)
+        self.assertEqual(response.status_code, 302)
+        self.assertTrue(UserUpload.save.called)
+        self.assertEqual(UserUpload.save.call_count, 1)
