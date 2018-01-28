@@ -27,8 +27,3 @@ def submission(request):
 def success(request):
     ''' on success handler renders the success.html template'''
     return render(request, 'main/success.html')
-
-
-def failure(request):
-    ''' on failure handler renders the failure.html template'''
-    return render(request,'main/failure.html')
