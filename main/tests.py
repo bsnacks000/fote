@@ -18,14 +18,6 @@ bogus_image = SimpleUploadedFile(name='test_img.md', content=open(bogus_img_path
 
 class UserUploadModelTests(TestCase):
 
-    def test_userupload_record_added_to_database(self):
-
-        record = {'username': 'hep','email': 'hep@tup.com','location': 'nyc','upload_image': good_image}
-        u = UserUpload(**record)
-        u.save()
-
-        get_user = UserUpload.objects.get(username='hep')
-        self.assertIsEqual(len(get_user), 1)
 
     def test_create_user_upload_booleans_inits_to_false(self):
         record = {'username': 'hep','email': 'hep@tup.com','location': 'nyc','upload_image': good_image}
@@ -72,4 +64,4 @@ class UserUploadFormTest(TestCase):
         image_data = {'upload_image': good_image}
 
         form = UserUploadForm(data=data, files=image_data) # load bad image
-        self.assertTrue(form.is_valid())
+        self.assertFalse(form.is_valid())
