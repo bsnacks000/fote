@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from .forms import UserUploadForm
 
@@ -12,11 +13,14 @@ def submission(request):
     on validation the user redirects to success route
     on failure the user redirects to failure route
     '''
-    if request.method == 'POST':
-        raise NotImplementedError # form validation save to database
-        # return redirect('success') or redirect('failure')
-
     form = UserUploadForm()
+    if request.method == 'POST':
+        form = UserUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('success')
+        else:
+            messages.error(request, 'Some fields of the form are invalid')
     return render(request, 'main/submission.html', {'form':form})
 
 
