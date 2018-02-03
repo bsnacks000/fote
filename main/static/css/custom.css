@@ -1,1 +1,46 @@
 /* custom css placeholder*/
+
+/*
+--- Admin Colors
+light gray: #F6F6F6;
+gray: #545155;
+dark gray: #0D0115;
+primary: #473F94;
+primary-light: #DAD7FF;
+primary-lightest: #F9F9FF;
+secondary: #FFE057;
+
+--- Submission Colors
+primary: #35385D;
+secondary: #007DB5;
+font: Alegreya;
+input font: Roboto;
+*/
+
+
+* {
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  color: white;
+  background: rgba(34,33,36,.8);
+  font: 16px 'Roboto', sans-serif;
+}
+
+
+/* --- Submission Site */
+.flex-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+  width: 100%;
+}
+
