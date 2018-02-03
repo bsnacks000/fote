@@ -44,8 +44,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #sass lib app
+    'sass_processor',
+
     # add project apps here
     'main.apps.MainConfig'
+]
+
+
+SASS_PROCESSOR_INCLUDE_DIRS = [
+    os.path.join(BASE_DIR, 'extra-styles/scss'),
+    os.path.join(BASE_DIR, 'node_modules'),
 ]
 
 MIDDLEWARE = [
