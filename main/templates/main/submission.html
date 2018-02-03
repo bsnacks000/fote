@@ -8,7 +8,26 @@
     <h3> UserUpload Form </h3>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Upload Image</button>
+        {# {{ form.as_p }} #}
+        {% for field in form %}
+            {% if field.name != "physical_mailing_list" and field.name != "upload_image" %}
+                <p>
+                    {{ field.label}}
+                    {{ field }}
+                </p>
+            {% elif field.name == "upload_image"%}
+                <p class="upload-image">
+                    {{ field.label}}
+                    {{ field }}
+                </p>
+            {% elif field.name == 'physical_mailing_list'%}
+                <p class='newsletter'>
+                    {{ field }}
+                    {{ field.label}}
+                </p>
+            {% endif %}
+        {% endfor %}
+        {# render these guys seperately for the sick csss things #}
+        <button type="submit">Submit</button>
      </form>
 {% endblock %}
