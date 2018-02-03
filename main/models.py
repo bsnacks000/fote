@@ -1,6 +1,6 @@
 from django.db import models
 from django.dispatch import receiver
-import os 
+import os
 
 class UserUpload(models.Model):
     """ a record of a user upload of a jpeg receipt to the database

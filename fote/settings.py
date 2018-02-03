@@ -27,6 +27,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# email config -- for now just use console backend with python localhost server
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'webmaster@fote.com'
 
 # Application definition
 
