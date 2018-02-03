@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 
+{% load staticfiles %}
+
 {% block content %}
-    <h3> Success</h3>
+
+    <div class="flex-wrapper">
+        <div class="flex-inner">
+            <img src="{% static img/header-thankyou.png %}" alt="Thank You">
+        </div>
+    </div>
+
 {% endblock %}
