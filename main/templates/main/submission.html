@@ -22,6 +22,8 @@
                 <p class="upload-image">
                     <label for="{{field.id_for_label}}"> {{ field.label }} </label>
                     {{ field }}
+
+                    <div class="upload-image-filename" id='filename'></div>
                 </p>
             {% elif field.name == 'physical_mailing_list'%}
                 <p class='newsletter'>
