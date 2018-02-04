@@ -31,6 +31,8 @@ body, html {
 body {
   color: white;
   background: rgba(34,33,36,.8);
+  background: url('/static/img/bg-fote.png');
+  background-size: cover;
   font: 16px 'Roboto', sans-serif;
 }
 
@@ -42,5 +44,134 @@ body {
   align-items: center;
   min-height: 100%;
   width: 100%;
+}
+
+.flex-inner {
+    padding: 3em 10px;
+    max-width: 500px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1em;
+}
+
+input[type=text],
+input[type=email] {
+  box-shadow: 0;
+  border: 0;
+  background: #35385D;
+  width: 100%;
+  min-height: 50px;
+  color: #FFF;
+  padding: 0 10px;
+  font-size: 1.3em;
+}
+
+input[type=text]:focus,
+input[type=email]:focus, textarea:focus {
+  outline: 0;
+  box-shadow: 10px 0px #007DB5;
+  width: calc(100% - 10px);
+}
+
+button,
+input[type=submit] {
+  background: #35385D;
+  color: #FFF;
+  font-size: 1em;
+  height: 50px;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.upload-image input[type=file] {
+  /*display:none;*/
+}
+
+.upload-image label {
+  display: inline-block;
+  background: #35385D;
+  color: #FFF;
+  height: 50px;
+  border: 0;
+  box-shadow: 0;
+  border-radius: 12px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding-right: 20px;
+  padding-left: 20px;
+  line-height: 50px;
+}
+
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked,
+[type="radio"]:not(:checked),
+[type="radio"]:checked {
+  position: absolute;
+  left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label,
+[type="radio"]:not(:checked) + label,
+[type="radio"]:checked + label{
+  position: relative;
+  padding-left: 60px;
+  cursor: pointer;
+  line-height: 50px;
+}
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before,
+[type="radio"]:not(:checked) + label:before,
+[type="radio"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left:0;
+  top: 2px;
+  width: 50px;
+  height: 50px;
+}
+
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before {
+  border-radius: 12px;
+  background: #35385D;
+}
+
+[type="radio"]:not(:checked) + label:before,
+[type="radio"]:checked + label:before {
+  border-radius: 100%;
+}
+
+[type="checkbox"]:checked + label:before,
+[type="radio"]:checked + label:before {
+  background: #35385D;
+}
+
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+  content: '\2718';
+  font-size: 3em;
+  font-weight: 700;
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  line-height: 50px;
+  transition: all .4s;
+}
+
+[type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
 }
 
